@@ -6,6 +6,8 @@ import configparser
 from common.existing_output import load_services_to_request
 import random
 from common.remaining_time import print_remaining_time
+from common.write_missing_services import write_missing_services
+from os.path import dirname
 
 
 AVLO_URL = r'https://avlorenfe.com/'
@@ -66,9 +68,9 @@ def main_function(config_file_path):
             last_services_not_found_count += 1
 
         if last_services_not_found_count > 20:
-            # TODO: escribir en un archivo output los que faltan. tb AVLO
             print('{}\tNo trains found for the following services: {}'
                   .format(datetime.now(), services_to_request))
+            write_missing_services(services_to_request, dirname(output_path))
             break
 
     output_file.close()
