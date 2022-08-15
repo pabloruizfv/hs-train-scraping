@@ -175,7 +175,7 @@ def main_function(config_file_path):
 
     # Write the cheapest combinations in output file:
     i = 0
-    with open(output_path,'w') as output_file:
+    with open(output_path, 'w') as output_file:
         for combi, price in cheapest_combinations.items():
 
             output_file.write('{}|{}€|'.format(i, price) +
