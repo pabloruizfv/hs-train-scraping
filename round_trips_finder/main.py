@@ -53,12 +53,24 @@ def load_trains(input_path, origin_station, destination_station, travel_dates):
 def possible_train_combinations(available_go_trains, available_return_trains,
                                 travel_dates, trip_days):
     """
-    # TODO:
-    :param available_go_trains:
-    :param available_return_trains:
-    :param travel_dates:
-    :param trip_days:
-    :return combinations:  # TODO: describir esto
+    Selects the possible combinations between go trains and return trains, where
+    both trains must be during the travel dates, and there must be a number
+    of days between the go train and the return train that is included in the
+    trip_days list.
+    :param available_go_trains: ({str->[((str,str),float,str,str)]}) dictionary
+        relating each travel date (string DD/MM/YYYY) to a list in which each
+        element is a tuple representing a GO train service departing that date.
+        The elements of each tuple are:
+        1) Another tuple, of two elements, with the departure and arrival times.
+        2) A float value indicating the train price.
+        3) A string indicating the operator of this train.
+        4) A string indicating the departure date of the train (DD/MM/YYYY).
+    :param available_return_trains: ({str->[((str,str),float,str,str)]}) same
+        to available_go_trains, but containing return trains instead.
+    :param travel_dates: ([str,str,str,...]) DD/MM/YYYY
+    :param trip_days: ([int])
+    :return combinations: {(go_train, return_train): float} relates each pair
+        of possible go and return trains with the total price of both.
     """
     # Extract possible go-return train combinations between available go trains
     # and available return trains:
@@ -95,11 +107,13 @@ def possible_train_combinations(available_go_trains, available_return_trains,
     return combinations
 
 
-def select_cheapest(combinations, max_i):
+def select_cheapest(combinations, min_i):
     """
-    # TODO:
-    :param combinations:
-    :param max_i: (int)
+    Select the cheapest N combinations, where N = min_i, and all those
+    combinations at least as cheap as those N cheapest.
+    :param combinations: {(go_train, return_train): float} relates each pair
+        of possible go and return trains with the total price of both.
+    :param min_i: (int) minimum number of combinations to return.
     :return cheapest_combinations: same data structure as combinations argument,
         but keeping only the cheapest options.
     """
@@ -108,7 +122,7 @@ def select_cheapest(combinations, max_i):
     i = 0
     for combi, price in sorted(combinations.items(), key=lambda item: item[1]):
 
-        if i == max_i:
+        if i == min_i:
             max_price = price
 
         if price > max_price:
