@@ -90,8 +90,12 @@ def ouigo_services(origin_station, destination_station, travel_date,
 
     # 1) find origin station textbox and click on it so that the dropdown menu
     # with the station options is displayed:
-    origin_station_textbox = driver.find_element_by_xpath(
-        "//span[text()='Elige tu estación de origen ']")
+    try:
+        origin_station_textbox = driver.find_element_by_xpath(
+            "//span[text()='Elige tu estación de origen ']")
+    except NoSuchElementException:  # it might load in English language:
+        origin_station_textbox = driver.find_element_by_xpath(
+            "//span[text()='Select your departure station']")
     origin_station_textbox.click()
 
     # 2) add all the displayed station options to a list:
@@ -123,8 +127,12 @@ def ouigo_services(origin_station, destination_station, travel_date,
 
     # 1) find destination station textbox and click on it so that the dropdown
     # menu with the station options is displayed:
-    destination_station_textbox = driver.find_element_by_xpath(
-        "//span[text()='Elige tu estación de destino ']")
+    try:
+        destination_station_textbox = driver.find_element_by_xpath(
+            "//span[text()='Elige tu estación de destino ']")
+    except NoSuchElementException:  # it might load in English language:
+        destination_station_textbox = driver.find_element_by_xpath(
+            "//span[text()='Select your arrival station']")
     destination_station_textbox.click()
 
     # 2) add all the displayed station options to a list:

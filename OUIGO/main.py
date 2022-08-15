@@ -69,7 +69,8 @@ def main_function(config_file_path):
         if last_services_not_found_count > 20:
             print('{}\tERROR: No trains found for the following services: {}'
                   .format(datetime.now(), services_to_request))
-            write_missing_services(services_to_request, dirname(output_path))
+            write_missing_services(services_to_request, 'OUIGO',
+                                   dirname(output_path))
             break
 
     output_file.close()
@@ -77,5 +78,5 @@ def main_function(config_file_path):
 
 
 if __name__ == '__main__':
-    cfg_path = r"C:\Users\pablo\ProjectsData\HSTrainWebScraping\configuration_files\OUIGO.cfg"
+    cfg_path = r"C:\Users\pablo\ProjectsData\HSTrainWebScraping\configuration_files\main.cfg"
     main_function(cfg_path)

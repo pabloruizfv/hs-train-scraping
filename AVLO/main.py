@@ -70,7 +70,8 @@ def main_function(config_file_path):
         if last_services_not_found_count > 20:
             print('{}\tNo trains found for the following services: {}'
                   .format(datetime.now(), services_to_request))
-            write_missing_services(services_to_request, dirname(output_path))
+            write_missing_services(services_to_request, 'AVLO',
+                                   dirname(output_path))
             break
 
     output_file.close()
